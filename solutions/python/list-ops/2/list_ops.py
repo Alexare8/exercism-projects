@@ -1,0 +1,55 @@
+def append(list1: list, list2: list) -> list:
+    """Add all items in the second list to the end of the first list."""
+    both = list1
+    for item in list2:
+        both.append(item)
+    return both
+
+
+def concat(lists: list[list]) -> list:
+    """Combine all items in all lists into one flattened list."""
+    accum = []
+    for a_list in lists:
+        for item in a_list:
+            accum.append(item)
+    return accum
+
+
+def filter(function, list: list) -> list:
+    """Test each item in list with function, return list of items that returned True."""
+    filtered = []
+    for item in list:
+        if function(item):
+            filtered.append(item)
+    return filtered
+
+
+def length(list: list) -> int:
+    """Return number of items in a list."""
+    return sum(1 for item in list)
+
+
+def map(function, list: list) -> list:
+    """Apply function to each item in list, return list of results."""
+    return [function(item) for item in list]
+
+
+def foldl(function, list: list, initial):
+    """Reduce each item into an accumulator from the left."""
+    accum = initial
+    for item in list:
+        accum = function(accum, item)
+    return accum
+
+
+def foldr(function, list: list, initial):
+    """Reduce each item into an accumulator from the right."""
+    accum = initial
+    for item in list[::-1]:
+        accum = function(accum, item)
+    return accum
+
+
+def reverse(list: list) -> list:
+    """Reverse the order of a list."""
+    return list[::-1]
