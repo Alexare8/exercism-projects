@@ -1,0 +1,10 @@
+LINE_FORM = "For want of a {} the {} was lost."
+
+
+def proverb(*needs: tuple[str], qualifier: str = None) -> list[str]:
+    """Compose a proverb about the lack of the given list of inputs."""
+    if not needs:
+        return []
+    proverb = [LINE_FORM.format(needs[i], needs[i+1]) for i in range(len(needs)-1)]
+    proverb.append(f"And all for the want of a {qualifier + ' ' if qualifier else ''}{needs[0]}.")
+    return proverb
