@@ -1,0 +1,51 @@
+module SqueakyClean exposing (clean, clean1, clean2, clean3, clean4)
+
+
+clean1 : String -> String
+clean1 str =
+    String.replace " " "_" str
+
+
+replaceChar : Char -> String
+replaceChar char =
+    if List.member char [ '\n', '\u{000D}', '\t' ] then
+        "[CTRL]"
+
+    else
+        String.fromChar char
+
+
+clean2 : String -> String
+clean2 =
+    clean1
+        >> String.toList
+        >> List.map replaceChar
+        >> String.concat
+
+
+cap : String -> String
+cap subString = 
+    case String.uncons subString of
+        Just ( c, s ) ->
+            String.cons (Char.toUpper c) s
+        Nothing ->
+            ""
+
+
+clean3 : String -> String
+clean3 str =
+    case String.split "-" (clean2 str) of
+        x :: xs ->
+            String.concat (x :: List.map cap xs)
+        _ ->
+            ""
+
+
+clean4 : String -> String
+clean4 str =
+    String.filter (Char.isDigit >> not) (clean3 str)
+
+
+clean : String -> String
+clean str =
+    String.filter (\chr -> chr < 'α' || chr > 'ω') (clean4 str)
